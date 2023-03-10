@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MapboxGL from "@rnmapbox/maps";
-import { StyleSheet, View, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Dimensions, TouchableOpacity, Text, Image } from 'react-native';
 import GetLocation from 'react-native-get-location';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -53,11 +53,6 @@ const handleGetCurrentLocation = () => {
           centerCoordinate={coordinate}
       />
         <MapboxGL.PointAnnotation coordinate={currentCoordinate}>
-            <MapboxGL.Callout>
-              <View>
-                <Text>HELLO</Text>
-              </View>
-            </MapboxGL.Callout>
         </MapboxGL.PointAnnotation>
       </MapboxGL.MapView>
 
@@ -65,13 +60,13 @@ const handleGetCurrentLocation = () => {
           <TouchableOpacity style={styles.button} onPress={handleZoomIn}>
             <Image
               style={styles.currentLocationIcon}
-              source={require('../assets/location.svg')}
+              source={require('../assets/images/zoomIn.svg')}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleZoomOut}>
           <Image
               style={styles.currentLocationIcon}
-              source={require('../assets/location.svg')}
+              source={require('../assets/images/zoomOut.svg')}
             />
           </TouchableOpacity>
         </View>
