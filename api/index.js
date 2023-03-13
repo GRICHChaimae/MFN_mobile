@@ -16,6 +16,7 @@ app.use(bodyParser.json({limit : "30mb",extended: true }))
 app.use(bodyParser.urlencoded({limit : "30mb", extended: true }))
 
 app.use('/api/v1/user', require('./routes/authRoutes'))
+app.use('/api/v1/user', require('./routes/userRoutes'))
 
 app.use(errorHandler)
 app.listen(port, console.log(`Server running on port ${port}`))
