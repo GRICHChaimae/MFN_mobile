@@ -6,11 +6,15 @@ const { hashPassword } = require('../utils/helpers')
 
 
 const register = asyncHandler ( async (req, res) => {
-    const { completeName, companyName, companyAdress, phoneNumber, email, password } = req.body
-    console.log(completeName, companyAdress, email, password );
+    const { completeName, companyName, companyAdress, phoneNumber,latitude, longitude, email, password } = req.body
+    console.log(completeName, companyName, companyAdress, companyAdress, phoneNumber, email, password );
     if(!completeName || !companyName || !companyAdress || !phoneNumber || !email || !password) {
         res.status(400)
         throw new Error('Please add all fields')
+    }
+
+    if(longitude == 0 || latitude == 0) { res.status(400)
+        throw new Error('Please add your company location')
     }
 
     const userExists = await User.findOne({ email })
@@ -25,6 +29,8 @@ const register = asyncHandler ( async (req, res) => {
         companyName,
         companyAdress,
         phoneNumber,
+        longitude,
+        latitude,
         email,
         password: hashedPassword,
     })
