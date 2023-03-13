@@ -37,8 +37,12 @@ const Register = () => {
       setEmail('');
       setPassword('');
       navigation.navigate('Login');
-    }).catch((error)=>{console.log(error)
-      console.log("object")
+    }).catch((error)=>{console.log(error.message)
+      if (error.response) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage('Something went wrong. Please try again later.');
+      }
     })
   };
 
@@ -55,7 +59,7 @@ const Register = () => {
 
   return (
     <View style={styles.container}>
-      <Text>{errorMessage}</Text>
+      <Text style={styles.error}>{errorMessage}</Text>
       <Text style={styles.title}>Create an Account</Text>
       <TextInput
         style={styles.input}
@@ -113,6 +117,10 @@ const Register = () => {
 };
 
 const styles = StyleSheet.create({
+  error: {
+    fontWeight: 'bold',
+    color: 'red',
+  },
   container: {
     flex: 1,
     alignItems: 'center',

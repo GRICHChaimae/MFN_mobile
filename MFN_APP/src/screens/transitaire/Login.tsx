@@ -1,22 +1,35 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const Login = () => {
-  const [completeName, setCompleteName] = useState('');
-  const [entrepriseName, setEntrepriseName] = useState('');
-  const [adress, setAdress] = useState('');
-  const [phone, setPhone] = useState('');
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLogin = () => {
-    console.log('login button pressed');
+  const handleLogin = async () => {
+    await axios.post("http://192.168.1.10:3000/api/v1/user/login",{
+      email,
+      password,
+    }).then(()=>{
+      setEmail('');
+      setPassword('');
+      navigation.navigate('Home');
+    }).catch((error)=>{console.log(error.message)
+      if (error.response) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage('Something went wrong. Please try again later.');
+      }
+    })
   };
 
   return (
     <View style={styles.container}>
-      <Text>{errorMessage}</Text>
+      <Text style={styles.error}>{errorMessage}</Text>
       <Text style={styles.title}>Create an Account</Text>
       <TextInput
         style={styles.input}
@@ -40,6 +53,10 @@ const Login = () => {
 };
 
 const styles = StyleSheet.create({
+  error: {
+    fontWeight: 'bold',
+    color: 'red',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
