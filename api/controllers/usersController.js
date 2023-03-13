@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler')
 const User = require ('../models/authModel')
 
 const allUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({ password: 0 });
+    const users = await User.find({}, { password: 0 });
 
     if (users) {
         res.send(users);
