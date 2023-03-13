@@ -15,7 +15,7 @@ interface TabBarButtonProps {
 const TabBarButton: React.FC<TabBarButtonProps> = ({ label, selected, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.tabButton}>
-      <Text style={[styles.tabLabel, selected && styles.selectedTabLabel]}>{label}</Text>
+      <Text style={[styles.tabLabel]}>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -69,10 +69,6 @@ const styles = StyleSheet.create({
     tabLabel: {
       color: '#333',
       fontSize: 16,
-    },
-    selectedTabLabel: {
-      color: '#007aff',
-      fontWeight: 'bold',
     },
     screen: {
       flex: 1,
